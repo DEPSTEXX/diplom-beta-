@@ -1,0 +1,19 @@
+{
+  "name": "yarko-park",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Ярко Парк - парк развлечений с тремя локациями",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint"
+  },
+  "devDependencies": {
+    "turbo": "^2.9.1"
+  },
+  "packageManager": "npm@9.0.0"
+}
