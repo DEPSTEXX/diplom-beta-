@@ -8,6 +8,6 @@ return [
     'db_pass' => '',
     'db_charset' => 'utf8mb4',
     
-    // Адрес сайта для генерации ссылок
-    'site_url' => 'http://localhost/DIPLOM',
+    // Адрес сайта для генерации ссылок (автоматически определяется)
+    'site_url' => 'http://localhost',
 ];
