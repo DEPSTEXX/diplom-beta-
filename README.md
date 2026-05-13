@@ -1,239 +1,151 @@
-# Ярко Парк - Парк развлечений
+# 🎢 ЯРКО ПАРК - Парк развлечений
 
-Проект представляет собой веб-сайт парка развлечений с тремя локациями:
-1. **Батутный парк** - прыжки на батутах, ниндзя-парк
-2. **Горнолыжный склон** - катание на лыжах и сноуборде
-3. **Вейкбординг** - катание на вейкборде, прогулки на катамаранах
+Современный веб-сайт парка развлечений с тремя локациями, написанный на чистом PHP.
 
-## Структура проекта
+## 🚀 Быстрый старт
 
-```
-yarko-park/
-├── apps/
-│   ├── frontend/     # Клиентский сайт (Vue 3)
-│   │   ├── src/
-│   │   │   ├── api/           # API клиент
-│   │   │   ├── components/    # Компоненты (Header, Footer)
-│   │   │   ├── router/        # Маршрутизатор
-│   │   │   ├── stores/        # Pinia хранилища
-│   │   │   ├── styles/        # Стили
-│   │   │   └── views/         # Страницы
-│   │   ├── package.json
-│   │   ├── vite.config.ts
-│   │   └── tsconfig.json
-│   ├── admin/        # Админка (Vue 3)
-│   │   ├── src/
-│   │   │   ├── api/           # API клиент
-│   │   │   ├── components/    # Компоненты (Sidebar, Header)
-│   │   │   ├── router/        # Маршрутизатор
-│   │   │   ├── styles/        # Стили
-│   │   │   └── views/         # Страницы
-│   │   │       ├── products/      # Управление товарами
-│   │   │       ├── categories/    # Управление категориями
-│   │   │       ├── orders/        # Управление заказами
-│   │   │       ├── users/         # Управление пользователями
-│   │   │       ├── locations/     # Управление локациями
-│   │   │       ├── promotions/    # Управление акциями
-│   │   │       └── bookings/      # Управление бронированиями
-│   │   ├── package.json
-│   │   ├── vite.config.ts
-│   │   └── tsconfig.json
-│   └── backend/      # API (PHP)
-│       ├── config/    # Конфигурация
-│       ├── migrations/ # Миграции БД
-│       ├── seeders/   # Сидеры
-│       ├── src/       # Исходный код
-│       └── public/    # Точка входа
-├── packages/
-│   └── types/        # Переиспользуемые TypeScript типы
-├── start-all.bat     # Скрипт запуска для Windows CMD
-├── start-all.ps1     # Скрипт запуска для PowerShell
-└── README.md
-```
+### Требования
+- PHP 7.4 или выше
+- MySQL 5.7 или выше
+- Веб-сервер (Apache/Nginx) или XAMPP/OpenServer
 
-## Технологии
+### Установка
 
-- **Фронтенд**: Vue 3, Vue Router 5, Pinia 3, Axios
-- **Админка**: Vue 3, Vue Router 5, Pinia 3, Axios
-- **Бэкенд**: PHP 8.1+, MySQL
-- **Монорепозиторий**: Turborepo 2
+1. **Скопируйте файлы проекта** в папку веб-сервера:
+   - Для XAMPP: `C:\xampp\htdocs\DIPLOM`
+   - Для OpenServer: `C:\OpenServer\domains\yarko-park.local`
 
-## Быстрый старт
+2. **Настройте базу данных**:
+   - Откройте phpMyAdmin (http://localhost/phpmyadmin)
+   - Создайте базу данных `yarko_park`
+   - Импортируйте файл `sql/database.sql`
 
-### 1. Установка зависимостей
+3. **Проверьте конфигурацию**:
+   - Откройте `config.php`
+   - Убедитесь, что параметры подключения к БД верны:
+     ```php
+     'db_host' => 'localhost',
+     'db_name' => 'yarko_park',
+     'db_user' => 'root',
+     'db_pass' => '',
+     ```
 
-```bash
-npm install
-```
+4. **Запустите проект**:
+   - Через XAMPP: откройте http://localhost/DIPLOM
+   - Через OpenServer: http://yarko-park.local
+   - Через встроенный сервер PHP:
+     ```bash
+     php -S localhost:8000
+     ```
+     Затем откройте http://localhost:8000
 
-### 2. Настройка базы данных
+## 👤 Тестовые учетные записи
 
-1. Создайте базу данных MySQL `yarko_park`
-2. Скопируйте `apps/backend/.env.example` в `apps/backend/.env`
-3. Заполните настройки подключения к БД в `.env` файле
-
-### 3. Установка PHP зависимостей
-
-```bash
-cd apps/backend
-composer install
-```
-
-### 4. Запуск миграций
-
-```bash
-# В корне проекта или в apps/backend
-php -r "
-\$pdo = new PDO('mysql:host=localhost', 'root', '');
-\$pdo->exec('CREATE DATABASE IF NOT EXISTS yarko_park');
-\$pdo->exec('USE yarko_park');
-foreach (glob('migrations/*.sql') as \$file) {
-  \$pdo->exec(file_get_contents(\$file));
-}
-"
-```
-
-### 5. Заполнение тестовыми данными
-
-```bash
-cd apps/backend
-php seeders/seed.php
-```
-
-### 6. Запуск проекта
-
-#### Вариант 1: Автоматический запуск всех сервисов
-
-**Windows CMD:**
-```bash
-start-all.bat
-```
-
-**PowerShell:**
-```powershell
-.\start-all.ps1
-```
-
-#### Вариант 2: Ручной запуск
-
-**Бэкенд (PHP):**
-```bash
-cd apps/backend
-php -S localhost:8000 -t public
-```
-
-**Фронтенд (Vue):**
-```bash
-cd apps/frontend
-npm run dev
-```
-
-**Админка (Vue):**
-```bash
-cd apps/admin
-npm run dev
-```
-
-## Доступные страницы
-
-### Фронтенд (http://localhost:5173)
-| URL | Описание |
-|-----|----------|
-| `/` | Главная страница с выбором локации |
-| `/location/:slug` | Страница локации |
-| `/prices` | Прайс-лист |
-| `/promotions` | Акции |
-| `/certificates` | Сертификаты |
-| `/contacts` | Контакты |
-| `/login` | Вход |
-| `/register` | Регистрация |
-| `/cart` | Корзина |
-| `/booking` | Бронирование |
-| `/profile` | Личный кабинет |
-| `/profile/orders` | История заказов |
-| `/profile/bookings` | История бронирований |
-
-### Админка (http://localhost:5174)
-| URL | Описание |
-|-----|----------|
-| `/` | Дашборд со статистикой |
-| `/products` | Список товаров |
-| `/products/new` | Добавить товар |
-| `/products/:id` | Редактировать товар |
-| `/categories` | Список категорий |
-| `/categories/new` | Добавить категорию |
-| `/categories/:id` | Редактировать категорию |
-| `/orders` | Список заказов |
-| `/orders/:id` | Детали заказа |
-| `/users` | Список пользователей |
-| `/users/:id` | Редактировать пользователя |
-| `/locations` | Список локаций |
-| `/locations/new` | Добавить локацию |
-| `/locations/:id` | Редактировать локацию |
-| `/promotions` | Список акций |
-| `/promotions/new` | Добавить акцию |
-| `/promotions/:id` | Редактировать акцию |
-| `/bookings` | Список бронирований |
-
-## Тестовые данные
-
-### Пользователи
 | Email | Пароль | Роль |
 |-------|--------|------|
 | admin@yarko-park.ru | admin123 | Администратор |
-| test@test.ru | test123 | Покупатель |
+| test@test.ru | test123 | Пользователь |
 
-### Локации
-| Название | Slug |
-|----------|------|
-| Батутный парк | trampoline-park |
-| Горнолыжный склон | ski-slope |
-| Вейкбординг | wakeboarding |
+## 📁 Структура проекта
 
-## API эндпоинты
+```
+DIPLOM/
+├── assets/                 # Статические файлы
+│   ├── css/               # Стили
+│   │   └── style.css      # Основной CSS файл
+│   ├── js/                # JavaScript
+│   └── images/            # Изображения
+│       └── uploads/       # Загруженные пользователями файлы
+├── admin/                  # Админ-панель
+│   ├── index.php          # Дашборд
+│   ├── products.php       # Управление товарами
+│   ├── orders.php         # Заказы
+│   └── users.php          # Пользователи
+├── core/                   # Ядро приложения
+│   ├── Database.php       # Подключение к БД
+│   ├── RateLimit.php      # Защита от DDoS
+│   └── auth_helpers.php   # Функции аутентификации
+├── includes/               # Общие компоненты
+│   ├── header.php         # Шапка сайта
+│   ├── footer.php         # Подвал сайта
+│   └── ddos_block.php     # Блокировка при атаках
+├── sql/                    # SQL файлы
+│   └── database.sql       # Дамп базы данных
+├── config.php              # Конфигурация
+├── init.php                # Инициализация
+├── index.php               # Главная страница
+├── login.php               # Вход
+├── register.php            # Регистрация
+├── profile.php             # Личный кабинет
+├── cart.php                # Корзина
+├── cart_action.php         # Обработка корзины
+├── prices.php              # Прайс-лист
+├── contacts.php            # Контакты
+├── trampoline-park.php     # Батутный парк
+├── ski-slope.php           # Горнолыжный склон
+└── wakeboarding.php        # Вейкбординг
+```
 
-### Аутентификация
-- `POST /api/auth/login` - Вход
-- `POST /api/auth/register` - Регистрация
-- `GET /api/auth/me` - Получить текущего пользователя
+## 🎯 Функционал
 
-### Локации
-- `GET /api/locations` - Список локаций
-- `GET /api/locations/{slug}` - Информация о локации
+### Для посетителей:
+- ✅ Просмотр информации о локациях
+- ✅ Каталог товаров и услуг
+- ✅ Корзина и оформление заказов
+- ✅ Личный кабинет с историей заказов
+- ✅ Регистрация и авторизация
+- ✅ Форма обратной связи
 
-### Товары
-- `GET /api/products` - Список товаров
-- `GET /api/products/{id}` - Информация о товаре
+### Для администраторов:
+- ✅ Панель управления (Dashboard)
+- ✅ Управление товарами (CRUD)
+- ✅ Управление заказами
+- ✅ Управление пользователями
+- ✅ Просмотр статистики
 
-### Заказы
-- `GET /api/orders` - Список заказов пользователя
-- `POST /api/orders` - Создать заказ
+## 🛡️ Безопасность
 
-### Бронирования (с аутентификацией)
-- `GET /api/bookings` - Список бронирований пользователя
-- `POST /api/bookings` - Создать бронирование
-- `PUT /api/bookings/{id}/cancel` - Отменить бронирование
-- `GET /api/bookings/slots` - Доступные временные слоты
+- Хеширование паролей (bcrypt)
+- Защита от SQL-инъекций (PDO prepared statements)
+- Защита от XSS (htmlspecialchars)
+- Rate Limiting (защита от DDoS)
+- Разделение прав доступа (user/admin)
+- Сессионная аутентификация
 
-## Структура типов
+## 🎨 Дизайн
 
-Все типы определены в `packages/types/src/`:
-- `user.ts` - типы пользователей (User, LoginRequest, RegisterRequest)
-- `product.ts` - типы товаров (Product, Category, Certificate)
-- `order.ts` - типы заказов (Order, OrderItem)
-- `booking.ts` - типы бронирований (Booking, TimeSlot)
-- `location.ts` - типы локаций (Location, Promotion)
-- `api.ts` - типы API ответов (ApiResponse, PaginatedResponse)
+- Современный адаптивный дизайн
+- Мобильная версия
+- Иконки Font Awesome
+- Плавные анимации
+- Удобная навигация
 
-## Разработка
+## 📊 База данных
 
-### Добавление новых страниц
-1. Создайте Vue компонент в `apps/frontend/src/views/` или `apps/admin/src/views/`
-2. Добавьте маршрут в соответствующий `src/router/index.ts`
+Таблицы:
+- `users` - пользователи
+- `locations` - локации
+- `categories` - категории товаров
+- `products` - товары/услуги
+- `time_slots` - временные слоты
+- `orders` - заказы
+- `order_items` - элементы заказов
+- `bookings` - бронирования
+- `promotions` - акции
+- `certificates` - сертификаты
 
-### Работа с типами
-Типы определены в `packages/types/src/` и автоматически доступны во всех приложениях.
+## 🔧 Технологии
 
-## Лицензии
+- **Backend:** PHP 7.4+
+- **База данных:** MySQL 5.7+
+- **Frontend:** HTML5, CSS3, JavaScript (ванильный)
+- **Иконки:** Font Awesome 6
+- **Архитектура:** MVC-подобная структура
 
-Проект разработан в учебных целях.
+## 📝 Лицензия
+
+Учебный проект для демонстрации навыков веб-разработки.
+
+---
+
+**Разработано для дипломного проекта** 🎓
