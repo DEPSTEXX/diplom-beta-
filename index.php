@@ -11,7 +11,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="column-content">
       <h2 class="column-title">Батутный парк</h2>
       <p class="column-description">Много разных развлечений в парке</p>
-      <span class="column-button">Открыть &rarr;</span>
+      <span class="column-button">Открыть  &rarr;</span>
     </div>
   </a>
 
